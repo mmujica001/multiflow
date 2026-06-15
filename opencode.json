@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/opencode.schema.json",
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "../.agents/skills/frontend-design"
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "path": "../.agents/skills/supabase-postgres-best-practices"
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": "../.agents/skills/vercel-react-best-practices"
+    }
+  ],
+  "instructions": [
+    "../.opencode/lineamientos multiflow/Vision_general_y_filosofia_del_producto.md",
+    "../.opencode/lineamientos multiflow/stack_tecnologico.md",
+    "../.opencode/lineamientos multiflow/Requerimientos_multiflow.md",
+    "../.opencode/lineamientos multiflow/Design.md"
+  ]
+}
