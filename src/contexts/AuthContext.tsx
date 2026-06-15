@@ -85,7 +85,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   ): Promise<string | null> => {
     const supabase = createClient();
     if (!supabase) return "auth.notConfigured";
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
     if (error) return error.message;
     return null;
   };
