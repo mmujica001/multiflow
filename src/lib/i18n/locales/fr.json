@@ -105,7 +105,7 @@
   "wallet": {
     "connecting": "Connexion...",
     "notAvailable": "Portefeuille non disponible",
-    "disconnect": "Se déconnecter"
+    "disconnect": "Déconnecter le portefeuille"
   },
   "auth": {
     "notConfigured": "Supabase non configuré. Vérifiez .env.local"

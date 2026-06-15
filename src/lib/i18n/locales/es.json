@@ -105,7 +105,7 @@
   "wallet": {
     "connecting": "Conectando...",
     "notAvailable": "Wallet no disponible",
-    "disconnect": "Cerrar sesión"
+    "disconnect": "Desconectar wallet"
   },
   "auth": {
     "notConfigured": "Supabase no configurado. Revisa .env.local"

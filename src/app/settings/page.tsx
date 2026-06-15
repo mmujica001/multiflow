@@ -8,12 +8,12 @@ import { TopAppBar } from "@/components/layout/TopAppBar";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 import { SolanaNetworkSelector } from "@/components/solana/SolanaNetworkSelector";
-import { WalletButton, WalletDisconnectButton } from "@/contexts/WalletContext";
+import { WalletButton, WalletDisconnectButton, useWallet } from "@/contexts/WalletContext";
 import { getSolBalance } from "@/services/solana";
 import { shortenAddress, formatCurrency } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
-import { Loader2, Wallet, Trash2, Copy, Check } from "lucide-react";
+import { Loader2, LogOut, Wallet, Trash2, Copy, Check } from "lucide-react";
 import type { Currency, Wallet as WalletType } from "@/types";
 
 const NETWORK_LABELS: Record<string, { label: string; color: string }> = {
@@ -30,6 +30,7 @@ export default function SettingsPage() {
   const connectedWallet = useAppStore((s) => s.connectedWallet);
   const solanaNetwork = useAppStore((s) => s.solanaNetwork);
   const { wallets, setWallets, preferences, setPreferences, setConnectedWallet } = useAppStore();
+  const solanaWallet = useWallet();
   const [isLoading, setIsLoading] = useState(true);
   const [balanceLoading, setBalanceLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -94,6 +95,14 @@ export default function SettingsPage() {
     setPreferences({ base_currency: currency });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await solanaWallet.disconnect();
+    } catch {}
+    setConnectedWallet(null);
+    await signOut();
   };
 
   const copyAddress = () => {
@@ -275,8 +284,16 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        <button
+          onClick={handleSignOut}
+          className="w-full flex items-center justify-center gap-2 bg-error-container text-on-error-container rounded-full py-3 text-sm font-semibold hover:bg-error-container/80 transition-colors"
+        >
+          <LogOut className="w-4 h-4" />
+          {t("settings.logOut")}
+        </button>
+
         {publicKeyStr && (
-          <WalletDisconnectButton onDisconnected={signOut} />
+          <WalletDisconnectButton />
         )}
       </main>
 
